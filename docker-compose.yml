@@ -4,4 +4,11 @@ services:
     volumes:
       - .:/app
     working_dir: /app
-    tty: true
+    ports:
+      - "7860:7860"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=7860
+    env_file:
+      - .env
+    command: python -m src.main
