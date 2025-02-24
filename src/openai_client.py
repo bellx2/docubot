@@ -43,18 +43,11 @@ class OpenAIClient:
         Returns:
             Dict: モデルパラメータ
         """
-        # 基本パラメータ
-        params = {
-            "model": model,
-            "temperature": 0,
-            "stream": True,
-        }
-
-        # モデル別のパラメータ調整
-        if model.startswith(("o1", "o3-")):
-            params["max_completion_tokens"] = 4000
+        # モデル別のパラメータ設定
+        if model in ["o1", "o3-mini"]:
+            params = {"model": model, "stream": True, "max_completion_tokens": 4000}
         else:
-            params["max_tokens"] = 4000
+            params = {"model": model, "temperature": 0, "stream": True, "max_tokens": 4000}
 
         return params
 

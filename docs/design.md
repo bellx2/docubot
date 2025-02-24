@@ -24,8 +24,17 @@
 - 利用可能なモデル:
   - chatgpt-4o-latest
   - gpt-4
-  - gpt-3.5-turbo
+  - o1
+  - o3-mini
   - その他OpenAI APIで利用可能なモデル
+- モデル別パラメータ:
+  - o1, o3-mini:
+    - max_completion_tokens: 4000
+    - stream: true
+  - その他のモデル:
+    - max_tokens: 4000
+    - temperature: 0
+    - stream: true
 
 ## 2. 詳細設計
 
@@ -36,16 +45,16 @@
 class OpenAIClient:
     """OpenAI APIとの通信を管理するクラス"""
     DEFAULT_MODEL = "chatgpt-4o-latest"
-    
+
     def __init__(self, api_key: str):
         self.api_key = api_key
-        
+
     def get_available_models(self) -> List[str]:
         """利用可能なモデル一覧を取得"""
-        
+
     async def generate_stream(self, model: str, messages: List[dict]) -> AsyncGenerator:
         """ストリーミング形式でレスポンスを生成"""
-        
+
     def _get_model_params(self, model: str) -> dict:
         """モデル別のパラメータを設定"""
 ```
@@ -58,16 +67,16 @@ class ChatController:
         self.client = openai_client
         self.history = []
         self.current_model = openai_client.DEFAULT_MODEL
-        
+
     async def process_message(self, message: str, model: str) -> AsyncGenerator:
         """メッセージを処理しレスポンスを生成"""
-        
+
     def generate_document(self, doc_type: str) -> str:
         """要件定義書または設計書を生成"""
-        
+
     def update_history(self, role: str, content: str):
         """会話履歴を更新"""
-        
+
     def change_model(self, model: str):
         """使用するモデルを変更"""
 ```
@@ -78,7 +87,7 @@ class GradioInterface:
     """Gradioインターフェースを管理するクラス"""
     def __init__(self, controller: ChatController):
         self.controller = controller
-        
+
     def build_interface(self) -> gr.Interface:
         """Gradioインターフェースを構築"""
         with gr.Blocks() as interface:
@@ -89,7 +98,7 @@ class GradioInterface:
                     label="モデルを選択"
                 )
             # その他のUI要素
-        
+
     async def chat_stream(self, message: str, model: str, history: List[List[str]]) -> Generator:
         """チャットストリームを処理"""
 ```
