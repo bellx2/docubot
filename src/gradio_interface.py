@@ -2,7 +2,6 @@
 
 from typing import List, Dict, Generator
 import tempfile
-import os
 from pathlib import Path
 import gradio as gr
 from .chat_controller import ChatController

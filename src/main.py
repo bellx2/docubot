@@ -1,6 +1,5 @@
 """アプリケーションのメインエントリーポイント"""
 
-import os
 from dotenv import load_dotenv
 from .openai_client import OpenAIClient
 from .chat_controller import ChatController
