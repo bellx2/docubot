@@ -37,12 +37,14 @@
 ### Git操作
 
 - git管理されているファイルは、git mv や git rm を使って移動削除してください
+- コミットタイトルやメッセージは日本語で書いてください
 
 ### Pull Request(PR)
 
 #### PR作成時
 - PRを要望されたら、gitコマンドで差分を確認したうえで、`gh pr` コマンドを使ってPRを作成してください
 - PRのdescriptionは .github/pull_request_template.md を読み取ってフォーマットを合わせてください
+- PRのタイトルやdescriptionは日本語で書いてください
 
 #### PRレビュー時
 以下の手順でファイルごとにコメントを付けてください：
