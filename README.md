@@ -17,7 +17,12 @@
 
 ## セットアップ
 
-1. 環境変数の設定:
+1. Poetryのインストール（初回のみ）:
+```bash
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+2. 環境変数の設定:
 ```bash
 # .env_sampleを.envにコピー
 cp .env_sample .env
@@ -26,16 +31,20 @@ cp .env_sample .env
 vim .env
 ```
 
-2. 依存パッケージのインストール:
+3. 依存パッケージのインストール:
 ```bash
-pip install -r requirements.txt
+poetry install
 ```
 
 ## 使い方
 
 アプリケーションの起動:
 ```bash
-python -m src.main
+# 仮想環境を有効化
+poetry shell
+
+# アプリケーションを起動
+poetry run python -m src.main
 ```
 
 起動後、以下のURLでアクセス可能です：
@@ -83,7 +92,7 @@ docker compose down
 
 テストの実行:
 ```bash
-pytest
+poetry run pytest
 ```
 
 ### Dockerでのテスト実行
@@ -106,7 +115,7 @@ docker compose exec app pytest
 │   └── gradio_interface.py # UI実装
 ├── tests/             # テストコード
 ├── .env_sample        # 環境変数設定例
-└── requirements.txt   # 依存パッケージ
+└── pyproject.toml     # プロジェクト設定・依存関係
 ```
 
 ## ライセンス
