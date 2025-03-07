@@ -12,19 +12,25 @@ class OpenAIClient:
     DEFAULT_MODEL = "chatgpt-4o-latest"
     AVAILABLE_MODELS = ["chatgpt-4o-latest", "gpt-4", "o1", "o3-mini"]
 
-    def __init__(self, api_key: str = None):
+    def __init__(self, api_key: str = None, base_url: str = None):
         """
         OpenAIClientを初期化します。
 
         Args:
             api_key (str, optional): OpenAI APIキー。
                 未指定の場合は環境変数OPENAI_API_KEYから読み込みます。
+            base_url (str, optional): OpenAI APIのベースURL。
+                未指定の場合は環境変数OPENAI_BASE_URLから読み込みます。
         """
         self.api_key = api_key or os.getenv("OPENAI_API_KEY")
         if not self.api_key:
             raise ValueError("OpenAI APIキーが設定されていません")
 
-        self.client = AsyncOpenAI(api_key=self.api_key)
+        self.base_url = base_url or os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1")
+        self.client = AsyncOpenAI(
+            api_key=self.api_key,
+            base_url=self.base_url
+        )
 
     def get_available_models(self) -> List[str]:
         """利用可能なモデル一覧を取得します。
