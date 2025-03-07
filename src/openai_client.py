@@ -1,6 +1,7 @@
 """OpenAI APIとの通信を管理するモジュール"""
 
 import os
+from dotenv import load_dotenv
 from typing import AsyncGenerator, List, Dict
 import openai
 from openai import AsyncOpenAI
@@ -8,11 +9,14 @@ from openai import AsyncOpenAI
 
 class OpenAIClient:
     """OpenAI APIとの通信を管理するクラス"""
-
-    DEFAULT_MODEL = "chatgpt-4o-latest"
+    load_dotenv()
+    DEFAULT_MODEL = os.getenv("OPENAI_MODEL", "chatgpt-4o-latest")
     AVAILABLE_MODELS = ["chatgpt-4o-latest", "gpt-4", "o1", "o3-mini"]
 
     def __init__(self, api_key: str = None, base_url: str = None):
+        # DEFAULT_MODELが利用可能なモデルに含まれていない場合は追加
+        if self.DEFAULT_MODEL not in self.AVAILABLE_MODELS:
+            self.AVAILABLE_MODELS.append(self.DEFAULT_MODEL)
         """
         OpenAIClientを初期化します。
 
